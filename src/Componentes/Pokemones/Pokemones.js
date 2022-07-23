@@ -733,7 +733,7 @@
 //     elemento: ["Ghost", "Fire"],
 //     peso: 34.3,
 //     altura: 1.0,
-//     movimiento: "Flame-body",
+//     movimiento: "Flame-bodyFlame-body",
 //     movimientoSecundario: "Infiltrator",
 //     descripcion:
 //       "It establishes its abode in old buildings. He waves the flames from his arms sinisterly to mesmerize his enemies.",

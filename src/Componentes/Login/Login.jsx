@@ -39,6 +39,9 @@ export default function Login() {
 
   return (
     <div className="papaDiv">
+      <Link style={{ textDecoration: "none" }} to={`/registrar`}>
+        <button className="registrar">Registrar</button>
+      </Link>
       <div className="papa">
         <h1 className="bienvenidos">Bienvenidos</h1>
         <form action="" onSubmit={verify}>
