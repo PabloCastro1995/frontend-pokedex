@@ -28,6 +28,7 @@ export default function Login() {
       navegar("/");
     } catch (error) {
       console.log("Error");
+      alert("Usuario no registrado");
     }
   };
   const handleEmail = (ev) => {
@@ -40,27 +41,39 @@ export default function Login() {
   return (
     <div className="papaDiv">
       <Link style={{ textDecoration: "none" }} to={`/registrar`}>
-        <button className="registrar">Registrar</button>
+        <button className="registrar">Click to Register</button>
       </Link>
       <div className="papa">
-        <h1 className="bienvenidos">Bienvenidos</h1>
-        <form action="" onSubmit={verify}>
+        <form className="formRegister" action="" onSubmit={verify}>
+          <h1 className="bienvenidos">Welcome</h1>
           <div className="inputs">
-            <h3>Email</h3>
-            <input id="iputLogin" onChange={handleEmail} type="email" name="" />
+            <label>Email</label>
+            <input
+              id="iputLogin"
+              onChange={handleEmail}
+              type="email"
+              placeholder="Email"
+            />
           </div>
           <div className="inputs">
-            <h3>Password</h3>
-            <input id="iputLogin" onChange={handlePassword} type="password" />
+            <label>Password</label>
+            <input
+              id="iputLogin"
+              onChange={handlePassword}
+              type="password"
+              placeholder="Password"
+            />
           </div>
-          <button id="btn" onClick={verify}>
+          <button id="btn" className="butRegister" onClick={verify}>
             {" "}
-            Iniciar
+            Log in
           </button>
+          <Link style={{ textDecoration: "none" }} to={`/`}>
+            <button id="btn" className="butRegister">
+              Continue without Log in
+            </button>
+          </Link>
         </form>
-        <Link style={{ textDecoration: "none" }} to={`/`}>
-          <button id="btn">Continuar sin iniciar</button>
-        </Link>
       </div>
     </div>
   );

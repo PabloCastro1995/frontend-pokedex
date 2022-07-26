@@ -1,16 +1,14 @@
 .numeroPokemon {
-  left: 3px;
-  top: 220px;
-  position: absolute;
-  display: inline-block;
-  text-align: end;
-  margin-top: 10px;
+  position: relative;
+  right: 106px;
+  bottom: 10px;
 }
 .elementosPokemones {
-  font-size: 0.8rem;
+  font-size: 1rem;
   justify-content: space-evenly;
   display: flex;
-  margin: 10px 0px;
+  position: relative;
+  bottom: 13px;
 }
 .padrePokemones {
   position: relative;
@@ -27,25 +25,23 @@
   width: 200px;
 }
 .delete {
-  animation: roll 3s infinite;
-  transform: rotate(30deg);
-  margin: 5px 0 0 5px;
-  align-items: flex-end;
-  display: flex;
+  margin: -2px 0 0 255px;
   border: none;
-  background: none;
-  color: black;
+  color: white;
+  font-size: 1.1rem;
+  padding: 8px 10px;
+  border-radius: 0px 20px 0px 0px;
 }
 .delete:hover {
-  color: red;
+  color: rgb(255, 0, 0);
   transition-duration: 0.2s;
-  transform: scale(1.2, 1.2);
+  /* transform: scale(1.2, 1.2); */
 }
-@keyframes roll {
+/* @keyframes roll {
   0% {
     transform: rotate(0);
   }
   100% {
     transform: rotate(360deg);
   }
-}
+} */

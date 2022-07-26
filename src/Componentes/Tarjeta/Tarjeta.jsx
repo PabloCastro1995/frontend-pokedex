@@ -33,9 +33,7 @@ export default function Tarjeta() {
 
   const prev = pokemon.id - 1;
 
-  const imgPokemon =
-    pokemon.nombre &&
-    require(`../../iconos/${pokemon.nombre?.toLowerCase()}.png`);
+  const imgPokemon = pokemon.imagen;
   return (
     <div className="body">
       <div className="contenedorTarjeta">

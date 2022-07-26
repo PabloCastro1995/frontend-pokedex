@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Registrar.css";
 import { Link } from "react-router-dom";
 
 export default function Registrar() {
-  // const navegar = useNavigate();
+  const navegar = useNavigate();
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ export default function Registrar() {
       });
       const userFetch = await res.json();
       localStorage.setItem("token", userFetch.token);
-      // navegar("/");
+      navegar("/login");
     } catch (error) {}
   };
   const handleName = (ev) => {
@@ -36,14 +36,14 @@ export default function Registrar() {
   return (
     <div id="body">
       <form action="" className="formRegister">
-        <h1 className="tituloRegister">Registrate</h1>
+        <h1 className="tituloRegister">Sign up</h1>
         <div className="divDatos">
-          <label>Nombre</label>
+          <label>Name</label>
           <input
             className="inputRegis"
             onChange={handleName}
             type="text"
-            placeholder="Nombre"
+            placeholder="Name"
           />
         </div>
         <div className="divDatos">
@@ -52,7 +52,7 @@ export default function Registrar() {
             className="inputRegis"
             onChange={handleEmail}
             type="mail"
-            placeholder="Mail"
+            placeholder="Email"
           />
         </div>
         <div className="divDatos">
@@ -68,7 +68,7 @@ export default function Registrar() {
       </form>
       <Link style={{ textDecoration: "none" }} to={`/login`}>
         <button onClick={verify} className="butRegister">
-          Registrar
+          Register now
         </button>
       </Link>
     </div>

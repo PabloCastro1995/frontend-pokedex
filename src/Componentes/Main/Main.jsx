@@ -5,6 +5,7 @@ import CardPokemon from "../CardPokemon/CardPokemon";
 import PokeballRodante from "../../iconos/Poké_Ball_icon.svg.png";
 import Ash from "../../iconos/ash.png";
 import { Link } from "react-router-dom";
+import Agregar from "../Agregar/Agregar";
 
 export default function Main() {
   const [listaDePokemones, setListaDePokemones] = useState([]);
@@ -104,6 +105,9 @@ export default function Main() {
       ) : null}
 
       <div className="lista-pokemones">
+        <div>
+          <Agregar></Agregar>
+        </div>
         {pokemonesFiltrado.map((pokemon) => {
           return (
             <CardPokemon
