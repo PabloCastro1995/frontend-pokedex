@@ -52,7 +52,7 @@ export default function Login() {
               id="iputLogin"
               onChange={handleEmail}
               type="email"
-              placeholder="Email"
+              placeholder="example@gmail.com"
             />
           </div>
           <div className="inputs">
@@ -61,7 +61,7 @@ export default function Login() {
               id="iputLogin"
               onChange={handlePassword}
               type="password"
-              placeholder="Password"
+              placeholder="Exampl3.123"
             />
           </div>
           <button id="btn" className="butRegister" onClick={verify}>

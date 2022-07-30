@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./CardPokemon.css";
 export default function CardPokemon({ pokemon, cargarPokemones }) {
   const borrarPokemon = async () => {
-    const token = localStorage.setItem("token");
+    const token = localStorage.getItem("token");
     await fetch(`http://localhost:6789/Pokemons/${pokemon.id}`, {
       method: "DELETE",
       headers: { "auth-token": token },
@@ -17,10 +17,9 @@ export default function CardPokemon({ pokemon, cargarPokemones }) {
         className="padrePokemones"
         style={{
           fontWeight: "900",
-          width: "300px",
           border: "solid 4px",
-          borderColor: pokemon.color,
           borderRadius: "25px",
+          borderColor: pokemon.color,
         }}
         key={pokemon.numero.toString()}
       >
@@ -58,9 +57,6 @@ export default function CardPokemon({ pokemon, cargarPokemones }) {
           style={{
             backgroundColor: pokemon.color,
             borderRadius: " 0 0 15px 15px",
-            color: "white",
-            fontSize: "25px",
-            padding: "10px",
           }}
         >
           {pokemon.nombre}

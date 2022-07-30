@@ -1,5 +1,6 @@
 import "./Main.css";
 import React, { useState, useEffect } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 import pokeball from "../../iconos/Pokeball.png";
 import CardPokemon from "../CardPokemon/CardPokemon";
 import PokeballRodante from "../../iconos/Poké_Ball_icon.svg.png";
@@ -7,13 +8,21 @@ import Ash from "../../iconos/ash.png";
 import { Link } from "react-router-dom";
 import Agregar from "../Agregar/Agregar";
 
+const override = {
+  border: "1rem dashed black",
+  borderRight: "0",
+  display: "block",
+  margin: "0 auto",
+};
 export default function Main() {
   const [listaDePokemones, setListaDePokemones] = useState([]);
   const [pokemonesFiltrado, setPokemonesFiltrado] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [orderBy, setOrderBy] = useState("nombre");
+
   useEffect(() => {
     cargarPokemones();
   }, []);
-
   const cargarPokemones = async () => {
     try {
       const respuesta = await fetch("http://localhost:6789/Pokemons", {});
@@ -26,22 +35,25 @@ export default function Main() {
 
       setListaDePokemones(pokemonesFetch);
       setPokemonesFiltrado(pokemonesFetch);
+      setLoading(false);
     } catch (error) {
       console.log("No se pudo conectar con el backend");
     }
   };
 
   const ordenarPorNumero = () => {
-    let listaActualizadaPorNumero = [...listaDePokemones].sort(
+    const listaActualizadaPorNumero = [...listaDePokemones].sort(
       (a, b) => a.numero - b.numero
     );
     setPokemonesFiltrado(listaActualizadaPorNumero);
+    setOrderBy("nombre");
   };
   const ordenarPorNombre = () => {
-    let listaActualizadaPorNombre = [...listaDePokemones].sort((a, b) =>
+    const listaActualizadaPorNombre = [...listaDePokemones].sort((a, b) =>
       a.nombre.localeCompare(b.nombre)
     );
     setPokemonesFiltrado(listaActualizadaPorNombre);
+    setOrderBy("numero");
   };
 
   const buscarNombre = (ev) => {
@@ -55,7 +67,6 @@ export default function Main() {
       setPokemonesFiltrado(listaFiltrada);
     }
   };
-
   return (
     <div className="padre-div">
       <div className="headerCard">
@@ -79,14 +90,10 @@ export default function Main() {
           </button>
         </Link>
         <button
-          onClick={
-            pokemonesFiltrado[0]?.numero !== "001"
-              ? ordenarPorNumero
-              : ordenarPorNombre
-          }
+          onClick={orderBy === "numero" ? ordenarPorNumero : ordenarPorNombre}
           id="button-ordenar"
         >
-          {pokemonesFiltrado[0]?.numero !== "001" ? "⬇🔢" : "⬇🔠"}
+          {orderBy === "numero" ? "⬇🔢" : "⬇🔠"}
         </button>
       </div>
       <div className="input">
@@ -104,20 +111,28 @@ export default function Main() {
         </div>
       ) : null}
 
-      <div className="lista-pokemones">
-        <div>
-          <Agregar></Agregar>
+      {loading ? (
+        <ClipLoader loading={loading} cssOverride={override} size={150} />
+      ) : (
+        <div className="lista-pokemones">
+          {localStorage.getItem("token") && (
+            <div>
+              <Agregar></Agregar>
+            </div>
+          )}
+          {pokemonesFiltrado.map((pokemon) => {
+            return (
+              <>
+                <CardPokemon
+                  pokemon={pokemon}
+                  key={pokemon.nombre}
+                  cargarPokemones={cargarPokemones}
+                ></CardPokemon>
+              </>
+            );
+          })}
         </div>
-        {pokemonesFiltrado.map((pokemon) => {
-          return (
-            <CardPokemon
-              pokemon={pokemon}
-              key={pokemon.nombre}
-              cargarPokemones={cargarPokemones}
-            />
-          );
-        })}
-      </div>
+      )}
     </div>
   );
 }

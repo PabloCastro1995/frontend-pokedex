@@ -48,3 +48,19 @@
   transition-duration: 0.2s;
   transform: scale(1.2, 1.2);
 }
+@media (max-width: 390px) {
+  .img {
+    height: 58px;
+  }
+  .nombre {
+    font-size: 18px;
+  }
+  .padre-agregar {
+    width: 150px;
+    height: 160px;
+  }
+  .numero {
+    top: 87px;
+    font-size: 13px;
+  }
+}

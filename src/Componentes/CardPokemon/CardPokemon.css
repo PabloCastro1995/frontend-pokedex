@@ -12,6 +12,12 @@
 }
 .padrePokemones {
   position: relative;
+  width: 300px;
+}
+.cardBorder {
+  font-size: 25px;
+  padding: 10px;
+  color: white;
 }
 .padrePokemones:hover {
   box-shadow: 5px 19px 29px 6px rgba(23, 23, 23, 0.89);
@@ -37,11 +43,47 @@
   transition-duration: 0.2s;
   /* transform: scale(1.2, 1.2); */
 }
-/* @keyframes roll {
-  0% {
-    transform: rotate(0);
+
+@media (max-width: 390px) {
+  .padrePokemones {
+    width: 150px;
+    height: 160px;
   }
-  100% {
-    transform: rotate(360deg);
+
+  .imagenPokemon {
+    width: 86px;
+    position: absolute;
+    bottom: 27px;
+    left: 31px;
   }
-} */
+
+  .delete {
+    margin: -1px 0 0 116px;
+    font-size: 0.8rem;
+    padding: 3px 7px;
+    position: absolute;
+    right: 0px;
+  }
+  .cardBorder {
+    font-size: 11px;
+    padding: 10px;
+    color: white;
+    position: relative;
+    top: 75px;
+  }
+
+  .elementosPokemones {
+    padding: 6px;
+    height: 20px;
+    margin-top: 21px;
+    font-size: 7px;
+    position: relative;
+    bottom: 17px;
+  }
+  .numeroPokemon {
+    position: relative;
+    right: 48px;
+    top: 68px;
+    font-size: 0.5rem;
+  }
+}
