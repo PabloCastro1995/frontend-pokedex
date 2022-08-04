@@ -1,76 +1,78 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Registrar.css";
-import { Link } from "react-router-dom";
-
+import { useForm } from "react-hook-form";
 export default function Registrar() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navegar = useNavigate();
-  const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const verify = async (ev) => {
-    ev.preventDefault();
+  const verify = async (data) => {
     try {
       const res = await fetch("http://localhost:6789/register", {
         method: "POST",
-        body: JSON.stringify({ name, mail, password }),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const userFetch = await res.json();
-      localStorage.setItem("token", userFetch.token);
       navegar("/login");
     } catch (error) {}
   };
-  const handleName = (ev) => {
-    setName(ev.target.value);
-  };
-  const handleEmail = (ev) => {
-    setMail(ev.target.value);
-  };
-  const handlePassword = (ev) => {
-    setPassword(ev.target.value);
-  };
+
   return (
     <div id="body">
-      <form action="" className="formRegister">
+      <form onSubmit={handleSubmit(verify)} className="formRegister">
         <h1 className="tituloRegister">Sign up</h1>
         <div className="divDatos">
-          <label>Name</label>
+          <label htmlFor="name">Name</label>
           <input
             className="inputRegis"
-            onChange={handleName}
             type="text"
             placeholder="Name"
+            {...register("name", { required: true, maxLength: 20 })}
           />
+          {errors.name?.type === "required" && (
+            <p className="p-formulario">nombre no valido</p>
+          )}
         </div>
         <div className="divDatos">
-          <label>Email</label>
+          <label htmlFor="mail">Email</label>
           <input
             className="inputRegis"
-            onChange={handleEmail}
             type="mail"
             placeholder="Email@gmail.com"
+            {...register("mail", {
+              required: true,
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+            })}
           />
+          {errors.mail?.type === "required" && (
+            <p className="p-formulario">formato incorrecto</p>
+          )}
+          {errors.mail?.type === "pattern" && (
+            <p className="p-formulario">formato incorrecto</p>
+          )}
         </div>
         <div className="divDatos">
-          <label></label>
-          Password
+          <label htmlFor="password">Password</label>
           <input
             className="inputRegis"
-            onChange={handlePassword}
             type="password"
-            placeholder="Exampl3.123"
+            placeholder="Exampl3123"
+            {...register("password", { required: true, maxLength: 20 })}
           />
+          {errors.password?.type === "required" && (
+            <p className="p-formulario">formato incorrecto</p>
+          )}
         </div>
-      </form>
-      <Link style={{ textDecoration: "none" }} to={`/login`}>
-        <button onClick={verify} className="butRegister">
+        <button type="submit" className="butRegister">
           Register now
         </button>
-      </Link>
+      </form>
     </div>
   );
 }

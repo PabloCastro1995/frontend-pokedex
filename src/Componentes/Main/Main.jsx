@@ -1,12 +1,12 @@
 import "./Main.css";
 import React, { useState, useEffect } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 import pokeball from "../../iconos/Pokeball.png";
 import CardPokemon from "../CardPokemon/CardPokemon";
+import Agregar from "../Agregar/Agregar";
 import PokeballRodante from "../../iconos/Poké_Ball_icon.svg.png";
 import Ash from "../../iconos/ash.png";
 import { Link } from "react-router-dom";
-import Agregar from "../Agregar/Agregar";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const override = {
   border: "1rem dashed black",
@@ -23,16 +23,14 @@ export default function Main() {
   useEffect(() => {
     cargarPokemones();
   }, []);
+
   const cargarPokemones = async () => {
     try {
       const respuesta = await fetch("http://localhost:6789/Pokemons", {});
-
       if (!respuesta.ok) {
         throw new Error("Error en el servidor");
       }
-
       const pokemonesFetch = await respuesta.json();
-
       setListaDePokemones(pokemonesFetch);
       setPokemonesFiltrado(pokemonesFetch);
       setLoading(false);
@@ -67,13 +65,28 @@ export default function Main() {
       setPokemonesFiltrado(listaFiltrada);
     }
   };
+
   return (
     <div className="padre-div">
+      {/* <button
+        className="divbutonlink"
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          })
+        }
+      >
+        ↑
+      </button> */}
       <div className="headerCard">
-        <div>
+        <div className="pokeball-div">
           <img className="pokeball" src={pokeball} alt="logo_pokemon" />
         </div>
-        <h1 className="titulo-pokedex">Pokédex</h1>
+        <h1 className="titulo-pokedex" id="a">
+          Pokédex
+        </h1>
         <div className="colaboradores">
           <h4> De: Pablito and Nico</h4>
         </div>
@@ -104,22 +117,22 @@ export default function Main() {
           placeholder=" 🔎  Search Pokémon.."
         />
       </div>
-      {pokemonesFiltrado == false ? (
-        <div className="pokemonNoEncontrado">
-          <img className="ash" src={Ash} alt={Ash} />
-          <h1>Pokémon no encontrado :C.....</h1>{" "}
-        </div>
-      ) : null}
 
       {loading ? (
         <ClipLoader loading={loading} cssOverride={override} size={150} />
       ) : (
         <div className="lista-pokemones">
           {localStorage.getItem("token") && (
-            <div>
+            <div className="agregar">
               <Agregar></Agregar>
             </div>
           )}
+          {pokemonesFiltrado == false ? (
+            <div className="pokemonNoEncontrado">
+              <img className="ash" src={Ash} alt={Ash} />
+              <h1>Pokémon no encontrado </h1>{" "}
+            </div>
+          ) : null}
           {pokemonesFiltrado.map((pokemon) => {
             return (
               <>
